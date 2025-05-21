@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransakcjeController;
+use App\Http\Controllers\ZnizkaController;
 
 Route::get('/admin/transakcje', [AdminController::class, 'showTransactions'])->name('admin.transakcje');
 Route::get('/transakcje', [TransakcjeController::class, 'index'])->name('transakcje');
+Route::resource('znizki', ZnizkaController::class);
 
 Route::get('/', function () {
     return view('welcome');
