@@ -10,6 +10,7 @@ Route::get('/admin/transakcje', [AdminController::class, 'showTransactions'])->n
 Route::get('/transakcje', [TransakcjeController::class, 'index'])->name('transakcje');
 Route::resource('znizki', ZnizkaController::class);
 
+
 Route::get('/', function () {
     return view('welcome');
 });

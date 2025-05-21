@@ -11,15 +11,14 @@ class ZnizkaController extends Controller
     public function index()
     {
         $znizki = Znizka::all();
-        return view('znizki', compact('znizki'));
+        return view('znizki.znizki', compact('znizki'));  // <--- zmienione na 'znizki.znizki'
     }
 
     // Pokaż formularz dodawania nowej zniżki
-    public function create()
-    {
-        return view('znizki.create');
-    }
-
+  public function create()
+{
+    return view('znizki.dodajZnizke');
+}
     // Zapisz nową zniżkę do bazy
     public function store(Request $request)
     {
