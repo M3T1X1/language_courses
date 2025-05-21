@@ -102,10 +102,7 @@
     <div class="links">
         <p>
             Nie masz konta?
-            <a href="#">Zarejestruj się</a>
-        </p>
-        <p>
-            <a href="#">Zapomniałeś hasła?</a>
+            <a href="{{ url('/register') }}">Zarejestruj się</a>
         </p>
     </div>
 </div>
