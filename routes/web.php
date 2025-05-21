@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TransakcjeController;
+
+Route::get('/admin/transakcje', [AdminController::class, 'showTransactions'])->name('admin.transakcje');
+Route::get('/transakcje', [TransakcjeController::class, 'index'])->name('transakcje');
+
 Route::get('/', function () {
     return view('welcome');
 });
