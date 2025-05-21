@@ -9,6 +9,16 @@ use App\Http\Controllers\ZnizkaController;
 Route::get('/admin/transakcje', [AdminController::class, 'showTransactions'])->name('admin.transakcje');
 Route::get('/transakcje', [TransakcjeController::class, 'index'])->name('transakcje');
 Route::resource('znizki', ZnizkaController::class);
+use App\Http\Controllers\KlientController;
+use App\Http\Controllers\DashboardController;
+
+
+Route::get('/admin/transakcje', [AdminController::class, 'showTransactions'])->name('admin.transakcje');
+Route::get('/transakcje', [TransakcjeController::class, 'index'])->name('transakcje');
+Route::get('/klienci', [KlientController::class, 'index'])->name('klienci.index');
+
+
+Route::resource('klienci', KlientController::class);
 
 
 Route::get('/', function () {
