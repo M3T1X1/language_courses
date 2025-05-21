@@ -27,3 +27,13 @@ Route::get('/app', function () {
 Route::get('/dashboard', function () {
     return view('dashboard'); // dashboard.blade.php
 });
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+
+
