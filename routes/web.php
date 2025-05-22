@@ -8,6 +8,7 @@ use App\Http\Controllers\TransakcjeController;
 use App\Http\Controllers\ZnizkaController;
 use App\Http\Controllers\KlientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CourseController;
 
 Route::get('/test-db', function () {
     return DB::select('SELECT * FROM instruktorzy LIMIT 1');
@@ -19,6 +20,9 @@ Route::resource('znizki', ZnizkaController::class);
 
 Route::get('/klienci', [KlientController::class, 'index'])->name('klienci.index');
 Route::resource('klienci', KlientController::class);
+
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::get('/', function () {
     return view('home'); // home.blade.php
