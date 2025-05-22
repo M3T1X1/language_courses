@@ -2,12 +2,51 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
-
 use Illuminate\Support\Facades\DB;
 
 Route::get('/test-db', function () {
     return DB::select('SELECT * FROM instruktorzy LIMIT 1');
 });
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TransakcjeController;
+use App\Http\Controllers\ZnizkaController;
+
+Route::get('/admin/transakcje', [AdminController::class, 'showTransactions'])->name('admin.transakcje');
+Route::get('/transakcje', [TransakcjeController::class, 'index'])->name('transakcje');
+Route::resource('znizki', ZnizkaController::class);
+use App\Http\Controllers\KlientController;
+use App\Http\Controllers\DashboardController;
+
+
+Route::get('/admin/transakcje', [AdminController::class, 'showTransactions'])->name('admin.transakcje');
+Route::get('/transakcje', [TransakcjeController::class, 'index'])->name('transakcje');
+Route::get('/klienci', [KlientController::class, 'index'])->name('klienci.index');
+
+
+Route::resource('klienci', KlientController::class);
+
+
+Route::get('/', function () {
+    return view('home'); // home.blade.php
+});
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('/app', function () {
+    return view('app'); // app.blade.php
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard'); // dashboard.blade.php
+});
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+
+
+

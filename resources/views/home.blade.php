@@ -25,8 +25,8 @@
       <a class="navbar-brand" href="#">Szkoła Językowa</a>
       <div class="btn-group btn-group-auth">
         <!-- Proste linki do statycznych plików HTML -->
-        <a class="btn btn-outline-primary" href="login.html">Zaloguj się</a>
-        <a class="btn btn-success" href="register.html">Zarejestruj się</a>
+        <a href="{{ route('login') }}" class="btn btn-primary">Zaloguj się</a>
+        <a href="{{ route('register') }}" class="btn btn-secondary">Zarejestruj się</a>
       </div>
     </div>
   </nav>
