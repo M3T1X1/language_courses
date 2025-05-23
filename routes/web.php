@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransakcjeController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\ZnizkaController;
 use App\Http\Controllers\KlientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourseController;
+
+
 
 Route::get('/test-db', function () {
     return DB::select('SELECT * FROM instruktorzy LIMIT 1');
@@ -23,6 +26,11 @@ Route::resource('klienci', KlientController::class);
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+
+Route::get('/rezerwacja', function (Request $request) {
+    $courseName = $request->query('course');
+    return view('rezerwacja', ['courseName' => $courseName]);
+})->name('rezerwacja');
 
 Route::get('/', function () {
     return view('home'); // home.blade.php
