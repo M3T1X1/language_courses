@@ -25,6 +25,6 @@ class TransakcjeController extends Controller
             ];
         });
 
-        return view('transakcje', ['transactions' => $data]);
+        return view('transakcje.transakcje', ['transactions' => $data]);
     }
 }
