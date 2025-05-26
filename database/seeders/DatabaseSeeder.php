@@ -12,8 +12,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+ kursy
+        // User::factory(10)->create();
+
+        $this->call(
+            KursyTableSeeder::class,
+            
+        ]);
+
         // Seeder dla instruktorów
         $this->call(InstruktorzyTableSeeder::class);
+ 
 
         // Seeder dla zniżek
         $this->call(ZnizkiSeeder::class);
