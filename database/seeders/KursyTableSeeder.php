@@ -25,7 +25,7 @@ class KursyTableSeeder extends Seeder
                 'data_rozpoczecia' => '2025-06-01',
                 'data_zakonczenia' => '2025-08-31',
                 'liczba_miejsc' => 10,
-                'id_instruktora' => $instruktorzy[0], // pierwszy instruktor
+                'id_instruktora' => $instruktorzy[0],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -36,11 +36,22 @@ class KursyTableSeeder extends Seeder
                 'data_rozpoczecia' => '2025-07-01',
                 'data_zakonczenia' => '2025-09-30',
                 'liczba_miejsc' => 15,
-                'id_instruktora' => $instruktorzy[1], // drugi instruktor
+                'id_instruktora' => $instruktorzy[1],
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // dodaj kolejne kursy według potrzeb
+            [
+                'cena' => 1100.00,
+                'jezyk' => 'Francuski',
+                'poziom' => 'Początkujący',
+                'data_rozpoczecia' => '2025-08-01',
+                'data_zakonczenia' => '2025-10-31',
+                'liczba_miejsc' => 8,
+                'id_instruktora' => $instruktorzy[2],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
+        
     }
 }

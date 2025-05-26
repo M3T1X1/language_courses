@@ -10,6 +10,7 @@ use App\Http\Controllers\ZnizkaController;
 use App\Http\Controllers\KlientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\PublicCourseController;
 
 
 
@@ -24,8 +25,12 @@ Route::resource('znizki', ZnizkaController::class);
 Route::get('/klienci', [KlientController::class, 'index'])->name('klienci.index');
 Route::resource('klienci', KlientController::class);
 
+// Trasy dla panelu admina
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+
+// Trasa dla publicznego widoku kursów (oferta)
+Route::get('/oferta', [PublicCourseController::class, 'index'])->name('oferta');
 
 Route::get('/rezerwacja', function (Request $request) {
     $courseName = $request->query('course');

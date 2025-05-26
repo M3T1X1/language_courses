@@ -84,6 +84,9 @@
       </div>
     </div>
   </div>
+  <div class="text-center mb-5">
+  <a href="{{ route('oferta') }}" class="btn btn-primary">Zobacz wszystkie kursy</a>
+  </div>
   <div class="container mb-5">
     <h2 class="mb-4">Nasi instruktorzy</h2>
     <div class="row text-center">
