@@ -1,0 +1,53 @@
+# Katalogi zależności
+/vendor
+/node_modules
+
+# Pliki środowiskowe
+.env
+.env.*
+.env.backup
+.env.production
+
+# Pliki cache i logi
+/storage/*.key
+/storage/*.log
+/storage/framework/*
+/storage/logs/*
+/storage/pail
+
+# Publiczne generowane pliki
+/public/storage
+/public/hot
+/public/mix-manifest.json
+/public/js/*.map
+/public/css/*.map
+/public/build
+
+# Pliki edytorów i systemów operacyjnych
+.idea/
+.sublime-project
+.sublime-workspace
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Artefakty NPM/Composer
+composer.phar
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Pliki związane z Homestead (jeśli nie używasz)
+homestead.yaml
+Homestead.json
+
+# Inne pliki konfiguracyjne i cache
+.phpunit.result.cache
+.phpunit.cache
+.phpactor.json
+.auth.json
+
+# Inne IDE/edytor foldery
+.fleet
+.nova
+.zed
