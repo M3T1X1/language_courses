@@ -18,8 +18,9 @@ class KlientController extends Controller
                 'nazwisko' => $k->nazwisko,
                 'email' => $k->email,
                 'adres' => $k->adres,
-                'telefon' => $k->telefon,
-                'id' => $k->id,
+                'nr_telefonu' => $k->nr_telefonu,
+                'adres_zdjecia' => $k->adres_zdjecia,
+                'id_klienta' => $k->id_klienta,
             ];
         });
 

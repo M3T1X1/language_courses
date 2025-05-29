@@ -37,7 +37,7 @@ Route::get('/rezerwacja', function (Request $request) {
     return view('rezerwacja', ['courseName' => $courseName]);
 })->name('rezerwacja');
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home'); // home.blade.php
 });
 
@@ -51,6 +51,10 @@ Route::get('/app', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard'); // dashboard.blade.php
+});
+
+Route::get('/kursy', function () {
+    return view('kursy'); // dashboard.blade.php
 });
 
 Route::get('/register', function () {
