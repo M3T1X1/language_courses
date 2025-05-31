@@ -37,13 +37,15 @@ Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.sh
 // Trasa dla publicznego widoku kursów (oferta)
 Route::get('/oferta', [PublicCourseController::class, 'index'])->name('oferta');
 
+
+
 Route::get('/rezerwacja', function (Request $request) {
     $courseName = $request->query('course');
     return view('rezerwacja', ['courseName' => $courseName]);
 })->name('rezerwacja');
 
 Route::get('/home', function () {
-    return view('home'); // home.blade.php
+    return view('home'); 
 });
 
 Route::get('/login', function () {

@@ -21,6 +21,6 @@ class Transakcja extends Model
 
     public function kurs()
     {
-        return $this->belongsTo(Kurs::class, 'id_kursu', 'id_kursu');
+        return $this->belongsTo(Course::class, 'id_kursu', 'id_kursu');
     }
 }
