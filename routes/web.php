@@ -31,8 +31,9 @@ Route::resource('znizki', ZnizkaController::class);
 Route::resource('klienci', KlientController::class);
 Route::get('/klienci', [KlientController::class, 'index'])->name('klienci.index');
 
-// Strona główna - pokazuje listę klientów (opcjonalnie)
-Route::get('/', [KlientController::class, 'index']);
+Route::get('/', function () {
+    return view('home');
+});
 
 // Autoryzacja
 Route::get('/login', function () {
