@@ -22,14 +22,23 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-      <a class="navbar-brand" href="#">Szkoła Językowa</a>
-      <div class="btn-group btn-group-auth">
-        <!-- Proste linki do statycznych plików HTML -->
-        <a href="{{ route('login') }}" class="btn btn-primary">Zaloguj się</a>
-        <a href="{{ route('register') }}" class="btn btn-secondary">Zarejestruj się</a>
-      </div>
+        <a class="navbar-brand" href="#">Szkoła Językowa</a>
+        @if(auth()->check())
+        <span class="navbar-text ms-3">
+            Zalogowany jako: <strong>{{ auth()->user()->imie }} {{ auth()->user()->nazwisko }}</strong>
+        </span>
+        <form method="POST" action="{{ route('logout') }}" style="display:inline; margin-left: 15px;">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger btn-sm">Wyloguj się</button>
+        </form>
+        @else
+        <div class="btn-group btn-group-auth">
+            <a href="{{ route('login') }}" class="btn btn-primary">Zaloguj się</a>
+            <a href="{{ route('register') }}" class="btn btn-secondary">Zarejestruj się</a>
+        </div>
+        @endif
     </div>
-  </nav>
+    </nav>
   <section class="hero text-center mb-5">
     <div class="container">
       <h1 class="display-4">Rozpocznij naukę języków z nami!</h1>
