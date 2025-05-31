@@ -6,8 +6,45 @@
   <title>Kursy - Panel Administratora</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body { background: #f1f3f6; }
+    .sidebar {
+      width: 240px;
+      background: #ffffff;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+    .sidebar a {
+      padding: 10px;
+      margin-bottom: 10px;
+      color: #333;
+      text-decoration: none;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar a:hover {
+      background: #e7f1ff;
+      color: #007bff;
+    }
+    .sidebar i {
+      margin-right: 10px;
+    }
+    .main-content {
+      margin-left: 260px;
+      padding: 40px;
+    }
+    .admin-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    .btn-action i { pointer-events: none; }
+  </style>
 </head>
 <body>
   <!-- Sidebar -->
@@ -42,110 +79,63 @@
   </div>
 
   <div class="main-content">
-    <div id="kursy" class="tab-pane active">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="admin-title">Kursy</h2>
-        <button class="btn btn-primary">
-          <i class="bi bi-plus-lg"></i> Dodaj kurs
-        </button>
-      </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="admin-title">Kursy</h2>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCourseModal">
+        <i class="bi bi-plus-lg"></i> Dodaj kurs
+      </button>
+    </div>
 
-      <!-- Filtry -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <select class="form-select filter-kursy" data-column="1">
-            <option value="">Wszystkie języki</option>
-            <option>Angielski</option>
-            <option>Hiszpański</option>
-            <option>Francuski</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <select class="form-select filter-kursy" data-column="2">
-            <option value="">Wszystkie poziomy</option>
-            <option>Podstawowy</option>
-            <option>Średniozaawansowany</option>
-            <option>Zaawansowany</option>
-            <option>Początkujący</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <input type="number" class="form-control filter-kursy" placeholder="Cena max" data-column="6" />
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control filter-kursy" placeholder="Instruktor" data-column="3" />
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control filter-kursy" placeholder="Liczba miejsc" data-column="3" />
-        </div>
-      </div>
+    <!-- Filtry -->
+    <div class="row mb-4">
+      <div class="col-md-2"><input class="form-control" placeholder="Język" /></div>
+      <div class="col-md-2"><input class="form-control" placeholder="Poziom" /></div>
+      <div class="col-md-2"><input class="form-control" type="number" placeholder="Cena max" /></div>
+      <div class="col-md-2"><input class="form-control" placeholder="Instruktor" /></div>
+      <div class="col-md-2"><input class="form-control" placeholder="Miejsca" /></div>
+    </div>
 
-      <div class="table-responsive bg-white">
-        <table class="table table-hover mb-0" id="kursyTable">
-          <thead>
-            <tr>
-              <th>Nazwa kursu</th>
-              <th>Język</th>
-              <th>Poziom</th>
-              <th>Instruktor</th>
-              <th>Data rozpoczęcia</th>
-              <th>Data zakończenia</th>
-              <th>Cena</th>
-              <th>Liczba miejsc</th>
-              <th>Akcje</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><a href="{{ url('course-detail?id=1') }}" class="course-title">Angielski - podstawowy</a></td>
-              <td>Angielski</td>
-              <td>Podstawowy</td>
-              <td><a href="{{ url('instructor-detail?id=1') }}" class="instructor-name">Jan Kowalski</a></td>
-              <td>2025-06-01</td>
-              <td>2025-08-31</td>
-              <td>1200</td>
-              <td>15</td>
-              <td>
-                <button class="btn btn-sm btn-outline-primary btn-action"><i class="bi bi-pencil"></i></button>
-                <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash"></i></button>
-                <a href="{{ url('course-detail?id=1') }}" class="btn btn-sm btn-outline-info btn-action"><i class="bi bi-eye"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="{{ url('course-detail?id=2') }}" class="course-title">Hiszpański - średniozaawansowany</a></td>
-              <td>Hiszpański</td>
-              <td>Średniozaawansowany</td>
-              <td><a href="{{ url('instructor-detail?id=2') }}" class="instructor-name">Maria Nowak</a></td>
-              <td>2025-06-15</td>
-              <td>2025-09-15</td>
-              <td>1350</td>
-              <td>12</td>
-              <td>
-                <button class="btn btn-sm btn-outline-primary btn-action"><i class="bi bi-pencil"></i></button>
-                <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash"></i></button>
-                <a href="{{ url('course-detail?id=2') }}" class="btn btn-sm btn-outline-info btn-action"><i class="bi bi-eye"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="{{ url('course-detail?id=3') }}" class="course-title">Francuski - początkujący</a></td>
-              <td>Francuski</td>
-              <td>Początkujący</td>
-              <td><a href="{{ url('instructor-detail?id=3') }}" class="instructor-name">Piotr Wiśniewski</a></td>
-              <td>2025-07-01</td>
-              <td>2025-09-30</td>
-              <td>1100</td>
-              <td>10</td>
-              <td>
-                <button class="btn btn-sm btn-outline-primary btn-action" data-bs-toggle="modal" data-bs-target="#editCourseModal">
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash"></i></button>
-                <a href="{{ url('course-detail?id=3') }}" class="btn btn-sm btn-outline-info btn-action"><i class="bi bi-eye"></i></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="table-responsive bg-white p-3 rounded shadow-sm">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Nazwa kursu</th>
+            <th>Język</th>
+            <th>Poziom</th>
+            <th>Instruktor</th>
+            <th>Start</th>
+            <th>Koniec</th>
+            <th>Cena</th>
+            <th>Miejsca</th>
+            <th>Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($courses as $course)
+          <tr>
+            <td><a href="{{ url('course-detail?id=' . $course->id) }}">{{ $course->title }}</a></td>
+            <td>{{ $course->language }}</td>
+            <td>{{ $course->level }}</td>
+            <td><a href="{{ url('instructor-detail?id=' . $course->instructor->id) }}">{{ $course->instructor->name }}</a></td>
+            <td>{{ $course->start }}</td>
+            <td>{{ $course->end }}</td>
+            <td>{{ $course->price }}</td>
+            <td>{{ $course->places }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary btn-action" data-bs-toggle="modal" data-bs-target="#editCourseModal">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger btn-action delete-btn">
+                <i class="bi bi-trash"></i>
+              </button>
+              <a href="{{ url('course-detail?id=' . $course->id) }}" class="btn btn-sm btn-outline-info btn-action">
+                <i class="bi bi-eye"></i>
+              </a>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -153,50 +143,48 @@
   <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="editCourseLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form id="editCourseForm">
+        <form method="POST" action="{{ route('kursy.update') }}">
           @csrf
           <div class="modal-header">
             <h5 class="modal-title" id="editCourseLabel">Edytuj kurs</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zamknij"></button>
           </div>
-          <div class="modal-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">Nazwa kursu</label>
-                <input type="text" class="form-control" id="editNazwa" required />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Język</label>
-                <input type="text" class="form-control" id="editJezyk" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Poziom</label>
-                <input type="text" class="form-control" id="editPoziom" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Instruktor</label>
-                <input type="text" class="form-control" id="editInstruktor" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Data rozpoczęcia</label>
-                <input type="date" class="form-control" id="editStart" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Data zakończenia</label>
-                <input type="date" class="form-control" id="editEnd" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Cena</label>
-                <input type="number" class="form-control" id="editCena" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Liczba miejsc</label>
-                <input type="number" class="form-control" id="editMiejsca" />
-              </div>
+          <div class="modal-body row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nazwa</label>
+              <input type="text" class="form-control" name="title" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Język</label>
+              <input type="text" class="form-control" name="language">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Poziom</label>
+              <input type="text" class="form-control" name="level">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Instruktor</label>
+              <input type="text" class="form-control" name="instructor">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Start</label>
+              <input type="date" class="form-control" name="start">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Koniec</label>
+              <input type="date" class="form-control" name="end">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Cena</label>
+              <input type="number" class="form-control" name="price">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Miejsca</label>
+              <input type="number" class="form-control" name="places">
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
           </div>
         </form>
@@ -206,43 +194,16 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const editButtons = document.querySelectorAll('.btn-outline-primary');
-
-      editButtons.forEach(button => {
-        button.addEventListener('click', function () {
-          const row = this.closest('tr');
-          const cells = row.querySelectorAll('td');
-
-          document.getElementById('editNazwa').value = cells[0].innerText.trim();
-          document.getElementById('editJezyk').value = cells[1].innerText.trim();
-          document.getElementById('editPoziom').value = cells[2].innerText.trim();
-          document.getElementById('editInstruktor').value = cells[3].innerText.trim();
-          document.getElementById('editStart').value = cells[4].innerText.trim();
-          document.getElementById('editEnd').value = cells[5].innerText.trim();
-          document.getElementById('editCena').value = cells[6].innerText.trim();
-          document.getElementById('editMiejsca').value = cells[7].innerText.trim();
-
-          const modal = new bootstrap.Modal(document.getElementById('editCourseModal'));
-          modal.show();
-        });
-      });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
       const deleteButtons = document.querySelectorAll('.delete-btn');
-
-      deleteButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
-          const row = e.target.closest('tr');
-          const courseTitle = row.querySelector('.course-title').textContent;
-
-          if (confirm(`Czy na pewno chcesz usunąć kurs "${courseTitle}"?`)) {
-            row.remove();
-            alert('Kurs został usunięty!');
+      deleteButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm("Czy na pewno chcesz usunąć ten kurs?")) {
+            alert("Kurs usunięty."); // zamień na realne żądanie AJAX lub przekierowanie
           }
         });
       });
     });
   </script>
+
 </body>
 </html>

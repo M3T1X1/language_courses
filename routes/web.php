@@ -11,7 +11,7 @@ use App\Http\Controllers\KlientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PublicCourseController;
-
+use App\Http\Controllers\ReservationController;
 
 
 Route::get('/test-db', function () {
@@ -37,12 +37,10 @@ Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.sh
 // Trasa dla publicznego widoku kursów (oferta)
 Route::get('/oferta', [PublicCourseController::class, 'index'])->name('oferta');
 
+Route::get('/rezerwacja', [ReservationController::class, 'showForm'])->name('rezerwacja');
+Route::post('/rezerwacja', [ReservationController::class, 'submit'])->name('rezerwacja.submit');
 
 
-Route::get('/rezerwacja', function (Request $request) {
-    $courseName = $request->query('course');
-    return view('rezerwacja', ['courseName' => $courseName]);
-})->name('rezerwacja');
 
 Route::get('/home', function () {
     return view('home'); 

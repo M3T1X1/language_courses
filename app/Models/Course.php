@@ -8,6 +8,11 @@ class Course extends Model
     protected $table = 'kursy';
     protected $primaryKey = 'id_kursu';
 
+    protected $casts = [
+        'data_rozpoczecia' => 'date',
+        'data_zakonczenia' => 'date',
+    ];
+
     protected $fillable = ['cena', 'jezyk', 'poziom', 'data_rozpoczecia', 'data_zakonczenia', 'liczba_miejsc', 'id_instruktora'];
 
     public function instruktor()
