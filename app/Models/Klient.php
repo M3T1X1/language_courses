@@ -2,17 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Klient extends Model
+class Klient extends Authenticatable
 {
     protected $table = 'klienci';
     protected $primaryKey = 'id_klienta';
 
-    protected $fillable = ['email', 'haslo', 'imie', 'nazwisko', 'adres', 'nr_telefonu', 'adres_zdjecia'];
+    protected $fillable = [
+        'email', 'haslo', 'imie', 'nazwisko', 'adres', 'nr_telefonu', 'adres_zdjecia'
+    ];
 
-    public function transakcje()
+    // Jeśli pole hasła to "haslo", dodaj:
+    public function getAuthPassword()
     {
-        return $this->hasMany(Transakcja::class, 'id_klienta', 'id_klienta');
+        return $this->haslo;
     }
 }
+
