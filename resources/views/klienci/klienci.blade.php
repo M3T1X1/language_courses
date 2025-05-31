@@ -226,5 +226,28 @@
     </table>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filters = document.querySelectorAll('.filter-klienci');
+        const table = document.querySelector('.table');
+        const rows = table.querySelectorAll('tbody tr');
+
+        filters.forEach((input, colIndex) => {
+            input.addEventListener('input', function() {
+                rows.forEach(row => {
+                    let show = true;
+                    filters.forEach((f, i) => {
+                        const cell = row.children[i+1]; // +1 bo pierwsza kolumna to zdjęcie
+                        if (f.value && cell && !cell.textContent.toLowerCase().includes(f.value.toLowerCase())) {
+                            show = false;
+                        }
+                    });
+                    row.style.display = show ? '' : 'none';
+                });
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

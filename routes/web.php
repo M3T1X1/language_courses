@@ -25,6 +25,11 @@ Route::resource('znizki', ZnizkaController::class);
 Route::get('/klienci', [KlientController::class, 'index'])->name('klienci.index');
 Route::resource('klienci', KlientController::class);
 
+Route::delete('/klienci/{id}', [KlientController::class, 'destroy'])->name('klienci.destroy');
+
+Route::get('/klienci/{id_klienta}/edit', [KlientController::class, 'edit'])->name('klienci.edit');
+Route::put('/klienci/{id_klienta}', [KlientController::class, 'update'])->name('klienci.update');
+
 // Trasy dla panelu admina
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
