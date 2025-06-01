@@ -45,9 +45,14 @@ class RejestracjaController extends Controller
             'role' => 'user',
         ]);
 
-        // Automatyczne logowanie po rejestracji
-        Auth::login($klient);
-
-        return redirect()->route('login')->with('success', 'Rejestracja zakończona sukcesem! Możesz się zalogować.');
+        // Jeśli rejestruje admin (przychodzi parametr 'admin'), NIE loguj nowego klienta!
+        if ($request->has('admin')) {
+            // Admin zostaje zalogowany, wraca na listę klientów
+            return redirect()->route('klienci.index')->with('success', 'Klient został dodany!');
+        } else {
+            // Zwykła rejestracja – automatyczne logowanie nowego klienta
+            Auth::login($klient);
+            return redirect()->route('login')->with('success', 'Rejestracja zakończona sukcesem! Możesz się zalogować.');
+        }
     }
 }

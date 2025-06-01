@@ -152,14 +152,20 @@
       <a href="{{ url('/home') }}" class="nav-link mt-auto" target="_blank">
         <i class="bi bi-house"></i> Strona główna
       </a>
-      <a href="{{ url('logout') }}" class="nav-link">
-        <i class="bi bi-box-arrow-left"></i> Wyloguj
-      </a>
+      <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit" class="nav-link btn btn-link" style="color: inherit; text-align: left;">
+              <i class="bi bi-box-arrow-left"></i> Wyloguj
+          </button>
+      </form>
     </div>
   </div>
  <div class="main-content">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="admin-title">Lista klientów</h2>
+    <h2 class="admin-title">Lista klientów</h2>
+        <a href="{{ route('register.form', ['admin' => 1]) }}" class="btn btn-primary">
+            <i class="bi bi-person-plus"></i> Dodaj klienta
+        </a>
     </div>
     <!-- FILTRY -->
     <div class="row mb-3 filter-row">

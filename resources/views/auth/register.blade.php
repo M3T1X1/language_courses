@@ -85,6 +85,10 @@
     <form method="POST" action="#" enctype="multipart/form-data">
         @csrf
 
+        @if(request('admin'))
+        <input type="hidden" name="admin" value="1">
+        @endif
+
         <div class="form-group">
             <label for="email">Email:</label>
             <input

@@ -59,9 +59,12 @@ Route::get('/app', function () {
     Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+    //Route::get('/dashboard', function () {
+    //    return view('dashboard');
+    //});
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
     // Klienci
     Route::get('/klienci', [KlientController::class, 'index'])->name('klienci.index');

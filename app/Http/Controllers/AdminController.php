@@ -35,4 +35,9 @@ class AdminController extends Controller
 
         return view('admin.transactions', ['transactions' => $daneZBazy]);
     }
+
+    public function index()
+    {
+        return redirect()->route('dashboard');
+    }
 }
