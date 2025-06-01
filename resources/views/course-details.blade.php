@@ -33,15 +33,15 @@
 
   <div class="course-header">
     <div class="container text-center">
-      <h1 class="display-5 mb-3">{{ $course->title }}</h1>
+      <h1 class="display-5 mb-3">{{ $course->jezyk }} - {{ $course->poziom }}</h1>
       <div class="row justify-content-center">
         <div class="col-md-8">
           <div class="d-flex justify-content-between mb-2">
-            <span><strong>Start:</strong> {{ $course->start }}</span>
-            <span><strong>Koniec:</strong> {{ $course->end }}</span>
-            <span><strong>Poziom:</strong> {{ $course->level }}</span>
+            <span><strong>Start:</strong> {{ \Carbon\Carbon::parse($course->data_rozpoczecia)->format('Y-m-d') }}</span>
+            <span><strong>Koniec:</strong> {{ \Carbon\Carbon::parse($course->data_zakonczenia)->format('Y-m-d') }}</span>
+            <span><strong>Poziom:</strong> {{ $course->poziom }}</span>
           </div>
-          <a href="{{ url('rezerwacja?course=' . urlencode($course->title)) }}" class="btn btn-light btn-lg mt-3">Zapisz się na kurs</a>
+          <a href="{{ url('rezerwacja?course=' . urlencode($course->jezyk . ' - ' . $course->poziom)) }}" class="btn btn-light btn-lg mt-3">Zapisz się na kurs</a>
         </div>
       </div>
     </div>
@@ -51,10 +51,10 @@
     <div class="row">
       <div class="col-md-8">
         <h2 class="mb-4">O kursie</h2>
-        <p>{{ $course->description }}</p>
+        <p>Ten kurs języka {{ $course->jezyk }} na poziomie {{ $course->poziom }} został przygotowany z myślą o Tobie.</p>
         <h4 class="mt-5 mb-3">Dla kogo jest ten kurs?</h4>
         <ul>
-          <li>Dla osób rozpoczynających naukę języka {{ $course->language }}</li>
+          <li>Dla osób rozpoczynających naukę języka {{ $course->jezyk }}</li>
           <li>Dla osób, które miały kontakt z językiem, ale chcą usystematyzować swoją wiedzę</li>
           <li>Dla osób, które potrzebują podstaw języka do pracy lub podróży</li>
         </ul>
@@ -66,22 +66,22 @@
             Szczegóły kursu
           </div>
           <div class="card-body">
-            <p><strong>Cena:</strong> {{ $course->price }}</p>
-            <p><strong>Język:</strong> {{ $course->language }}</p>
-            <p><strong>Liczba miejsc:</strong> {{ $course->places }}</p>
+            <p><strong>Cena:</strong> {{ $course->cena }} PLN</p>
+            <p><strong>Język:</strong> {{ $course->jezyk }}</p>
+            <p><strong>Liczba miejsc:</strong> {{ $course->liczba_miejsc }}</p>
             <p><strong>Liczba zajęć:</strong> 24 (2 razy w tygodniu)</p>
             <p><strong>Czas trwania zajęć:</strong> 90 minut</p>
-            <a href="{{ url('rezerwacja?course=' . urlencode($course->title)) }}" class="btn btn-primary w-100">Zapisz się na kurs</a>
+            <a href="{{ url('rezerwacja?course=' . urlencode($course->jezyk . ' - ' . $course->poziom)) }}" class="btn btn-primary w-100">Zapisz się na kurs</a>
           </div>
         </div>
 
         <div class="instructor-card p-4 mt-4">
           <h5 class="mb-3">Instruktor kursu</h5>
           <div class="d-flex align-items-center mb-3">
-            <img src="{{ $course->instructor->image }}" alt="{{ $course->instructor->name }}" class="instructor-img me-3">
+            <img src="{{ $course->instructor->zdjecie ?? 'https://via.placeholder.com/100' }}" alt="{{ $course->instructor->imie }} {{ $course->instructor->nazwisko }}" class="instructor-img me-3">
             <div>
-              <h6 class="mb-1">{{ $course->instructor->name }}</h6>
-              <p class="mb-0 text-muted">{{ $course->instructor->language }}</p>
+              <h6 class="mb-1">{{ $course->instructor->imie }} {{ $course->instructor->nazwisko }}</h6>
+              <p class="mb-0 text-muted">Język: {{ $course->instructor->jezyk_specjalizacja }}</p>
             </div>
           </div>
           <a href="{{ url('instructor-detail?id=' . $course->instructor->id) }}" class="btn btn-outline-primary btn-sm w-100">Profil instruktora</a>
@@ -99,6 +99,4 @@
     </div>
     &copy; 2025 Szkoła Językowa
   </footer>
-
 </body>
-</html>

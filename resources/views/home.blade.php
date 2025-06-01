@@ -59,7 +59,7 @@
               Start: 2025-06-01<br>
               Cena: 1200 PLN
             </p>
-            <a href="{{ route('rezerwacja', ['course' => 'Angielski - podstawowy']) }}" class="btn btn-primary">Zapisz się na kurs</a>
+            <a href="{{ route('rezerwacja.create', ['course' => 1]) }}" class="btn btn-primary">Zapisz się na kurs</a>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@
               Start: 2025-06-15<br>
               Cena: 1350 PLN
             </p>
-            <a href="{{ route('rezerwacja', ['course' => 'Hiszpański - średniozaawansowany']) }}" class="btn btn-primary">Zapisz się na kurs</a>
+            <a href="{{ route('rezerwacja.create', ['course' => 2]) }}" class="btn btn-primary">Zapisz się na kurs</a>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
               Start: 2025-07-01<br>
               Cena: 1100 PLN
             </p>
-            <a href="{{ route('rezerwacja', ['course' => 'Francuski - początkujący']) }}" class="btn btn-primary">Zapisz się na kurs</a>
+            <a href="{{ route('rezerwacja.create', ['course' => 3]) }}" class="btn btn-primary">Zapisz się na kurs</a>
           </div>
         </div>
       </div>

@@ -28,6 +28,9 @@
     .btn-primary:hover {
       background: #3b6ecc;
     }
+    .btn-outline-secondary {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -37,7 +40,6 @@
       @foreach ($courses as $course)
         <div class="col-md-4">
           <div class="card h-100">
-            {{-- Tutaj możesz dodać obrazek kursu, jeśli masz --}}
             {{-- <img src="{{ $course->image_url ?? 'https://via.placeholder.com/400x200' }}" class="card-img-top" alt="{{ $course->jezyk }}"> --}}
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ $course->jezyk }} - {{ $course->poziom }}</h5>
@@ -46,6 +48,7 @@
                 Start: <strong>{{ \Carbon\Carbon::parse($course->data_rozpoczecia)->format('Y-m-d') }}</strong>
               </p>
               <a href="{{ route('rezerwacja', ['course' => $course->jezyk . ' - ' . $course->poziom]) }}" class="btn btn-primary mt-auto">Zapisz się</a>
+              <a href="{{ route('kursy.show', $course->id_kursu) }}" class="btn btn-outline-secondary w-100">Zobacz szczegóły</a>
             </div>
           </div>
         </div>
