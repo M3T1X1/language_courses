@@ -71,31 +71,26 @@
     </div>
 
     <!-- Filtry -->
-    <form method="GET" action="{{ route('kursy.index') }}">
-  <div class="row mb-4">
-    <div class="col-md-2">
-      <input class="form-control" name="jezyk" placeholder="Język" value="{{ request('jezyk') }}" />
-    </div>
-    <div class="col-md-2">
-      <input class="form-control" name="poziom" placeholder="Poziom" value="{{ request('poziom') }}" />
-    </div>
-    <div class="col-md-2">
-      <input class="form-control" name="cena_max" type="number" placeholder="Cena max" value="{{ request('cena_max') }}" />
-    </div>
-    <div class="col-md-2">
-      <input class="form-control" name="instruktor" placeholder="Instruktor" value="{{ request('instruktor') }}" />
-    </div>
-    <div class="col-md-2">
-      <input class="form-control" name="miejsca" placeholder="Miejsca" value="{{ request('miejsca') }}" />
-    </div>
-    <div class="col-md-2">
-      <button class="btn btn-primary w-100">Filtruj</button>
-    </div>
+    <div class="row mb-4 filters">
+  <div class="col-md-2">
+    <input class="form-control filter-kursy" name="jezyk" placeholder="Język" value="{{ request('jezyk') }}" />
   </div>
-</form>
+  <div class="col-md-2">
+    <input class="form-control filter-kursy" name="poziom" placeholder="Poziom" value="{{ request('poziom') }}" />
+  </div>
+  <div class="col-md-2">
+    <input class="form-control filter-kursy" name="cena_max" type="number" placeholder="Cena max" value="{{ request('cena_max') }}" />
+  </div>
+  <div class="col-md-2">
+    <input class="form-control filter-kursy" name="instruktor" placeholder="Instruktor" value="{{ request('instruktor') }}" />
+  </div>
+  <div class="col-md-2">
+    <input class="form-control filter-kursy" name="miejsca" placeholder="Miejsca" value="{{ request('miejsca') }}" />
+  </div>
+</div>
 
     <div class="table-responsive bg-white p-3 rounded shadow-sm">
-      <table class="table table-striped align-middle" id="coursesTable">
+      <table class="table" id="coursesTable">
         <thead>
           <tr>
             <th>Nazwa kursu</th>
@@ -152,4 +147,70 @@
       </table>
     </div>
   </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputJezyk = document.querySelector('input[name="jezyk"]');
+    const inputPoziom = document.querySelector('input[name="poziom"]');
+    const inputCenaMax = document.querySelector('input[name="cena_max"]');
+    const inputInstruktor = document.querySelector('input[name="instruktor"]');
+    const inputMiejsca = document.querySelector('input[name="miejsca"]');
+
+    const table = document.getElementById('coursesTable');
+    const rows = table.querySelectorAll('tbody tr');
+
+    if (!table) {
+        console.error('Tabela coursesTable nie znaleziona');
+        return;
+    }
+
+    [inputJezyk, inputPoziom, inputCenaMax, inputInstruktor, inputMiejsca].forEach(input => {
+        if(input) {
+            input.addEventListener('input', function() {
+                console.log(`Filtrowanie po: ${input.name} = ${input.value}`);
+                filterRows();
+            });
+        } else {
+            console.warn('Nie znaleziono inputa:', input);
+        }
+    });
+
+    function filterRows() {
+        const filterJezyk = inputJezyk?.value.trim().toLowerCase() || '';
+        const filterPoziom = inputPoziom?.value.trim().toLowerCase() || '';
+        const filterCena = parseFloat(inputCenaMax?.value.replace(',', '.') || NaN);
+        const filterInstruktor = inputInstruktor?.value.trim().toLowerCase() || '';
+        const filterMiejsca = parseInt(inputMiejsca?.value) || NaN;
+
+        rows.forEach(row => {
+            const cells = row.children;
+
+            const jezyk = cells[1].textContent.trim().toLowerCase();
+            const poziom = cells[2].textContent.trim().toLowerCase();
+            const instruktor = cells[3].textContent.trim().toLowerCase();
+            const cena = parseFloat(cells[6].textContent.replace(',', '.')) || NaN;
+            const miejsca = parseInt(cells[7].textContent) || NaN;
+
+            let show = true;
+
+            if(filterJezyk && !jezyk.includes(filterJezyk)) {
+                show = false;
+            }
+            if(filterPoziom && !poziom.includes(filterPoziom)) {
+                show = false;
+            }
+            if(!isNaN(filterCena) && (isNaN(cena) || cena > filterCena)) {
+                show = false;
+            }
+            if(filterInstruktor && !instruktor.includes(filterInstruktor)) {
+                show = false;
+            }
+            if(!isNaN(filterMiejsca) && miejsca !== filterMiejsca) {
+                show = false;
+            }
+
+            row.style.display = show ? '' : 'none';
+        });
+    }
+});
+</script>
 </body>
