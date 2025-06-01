@@ -7,43 +7,75 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
   <style>
-    body { background: #f1f3f6; }
-    .sidebar {
-      width: 240px;
-      background: #ffffff;
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
-      z-index: 1000;
-    }
-    .sidebar a {
-      padding: 10px;
-      margin-bottom: 10px;
-      color: #333;
-      text-decoration: none;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-    }
-    .sidebar a:hover {
-      background: #e7f1ff;
-      color: #007bff;
-    }
-    .sidebar i {
-      margin-right: 10px;
-    }
-    .main-content {
-      margin-left: 260px;
-      padding: 40px;
-    }
-    .admin-title {
-      font-size: 1.75rem;
-      font-weight: 600;
-    }
-    .btn-action i { pointer-events: none; }
+   body {
+  background: #f4f6fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+  width: 250px; /* zmienione z 240px dla spójności */
+  background: #343a40; /* ciemne tło */
+  color: #fff;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 30px 0; /* więcej paddingu */
+  box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+.sidebar a {
+  padding: 12px 30px;
+  margin: 4px 16px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.sidebar a:hover {
+  background: #495057;
+  color: #fff;
+}
+
+.sidebar i {
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 40px 30px;
+  transition: all 0.3s;
+}
+
+.admin-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.btn-action i {
+  pointer-events: none;
+}
+
+@media (max-width: 991px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+  .sidebar {
+    position: static;
+    width: 100%;
+    min-height: unset;
+    padding: 20px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -89,64 +121,61 @@
   </div>
 </div>
 
-    <div class="table-responsive bg-white p-3 rounded shadow-sm">
-      <table class="table" id="coursesTable">
-        <thead>
-          <tr>
-            <th>Nazwa kursu</th>
-            <th>Język</th>
-            <th>Poziom</th>
-            <th>Instruktor</th>
-            <th>Start</th>
-            <th>Koniec</th>
-            <th>Cena</th>
-            <th>Miejsca</th>
-            <th>Akcje</th>
-          </tr>
-        </thead>
-        <tbody>
-        @foreach ($courses as $course)
-          <tr>
-            <td>
-              <a href="{{ route('kursy.show', $course->id_kursu) }}">
-                {{ $course->jezyk }} {{ $course->poziom }}
-              </a>
-            </td>
-            <td>{{ $course->jezyk }}</td>
-            <td>{{ $course->poziom }}</td>
-            <td>
-              @if ($course->instructor)
-                <a href="{{ route('instruktorzy.show', $course->instructor->id) }}">
-                  {{ $course->instructor->imie }} {{ $course->instructor->nazwisko }}
-                </a>
-              @else
-                <span class="text-muted">Brak</span>
-              @endif
-            </td>
-            <td>{{ \Carbon\Carbon::parse($course->data_rozpoczecia)->format('Y-m-d') }}</td>
-            <td>{{ \Carbon\Carbon::parse($course->data_zakonczenia)->format('Y-m-d') }}</td>
-            <td>{{ $course->cena }}</td>
-            <td>{{ $course->liczba_miejsc }}</td>
-            <td class="d-flex gap-1">
-            <a href="{{ route('kursy.edit', $course->id_kursu) }}" class="btn btn-sm btn-outline-primary" title="Edytuj">
-                <i class="bi bi-pencil"></i>
-            </a>
+<div class="table-responsive bg-white p-3 rounded shadow-sm">
+  <table class="table" id="coursesTable">
+    <thead>
+      <tr>
+        <th>Nazwa kursu</th>
+        <th>Język</th>
+        <th>Poziom</th>
+        <th>Instruktor</th>
+        <th>Start</th>
+        <th>Koniec</th>
+        <th>Cena</th>
+        <th>Miejsca</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+    @foreach ($courses as $course)
+      <tr>
+        <td>
+          {{ $course->jezyk }} {{ $course->poziom }}
+        </td>
+        <td>
+          {{ $course->jezyk }}
+        </td>
+        <td>{{ $course->poziom }}</td>
+        <td>
+          @if ($course->instructor)
+            {{ $course->instructor->imie }} {{ $course->instructor->nazwisko }}
+          @else
+            <span class="text-muted">Brak</span>
+          @endif
+        </td>
+        <td>{{ \Carbon\Carbon::parse($course->data_rozpoczecia)->format('Y-m-d') }}</td>
+        <td>{{ \Carbon\Carbon::parse($course->data_zakonczenia)->format('Y-m-d') }}</td>
+        <td>{{ $course->cena }}</td>
+        <td>{{ $course->liczba_miejsc }}</td>
+        <td class="d-flex gap-1">
+          <a href="{{ route('kursy.edit', $course->id_kursu) }}" class="btn btn-sm btn-outline-primary" title="Edytuj">
+            <i class="bi bi-pencil"></i>
+          </a>
 
-              <form action="{{ route('kursy.destroy', $course->id_kursu) }}" method="POST" onsubmit="return confirm('Czy na pewno chcesz usunąć ten kurs?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-outline-danger" title="Usuń">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </form>
-              </a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
-  </div>
+          <form action="{{ route('kursy.destroy', $course->id_kursu) }}" method="POST" onsubmit="return confirm('Czy na pewno chcesz usunąć ten kurs?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-outline-danger" title="Usuń">
+              <i class="bi bi-trash"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+    @endforeach
+    </tbody>
+  </table>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const inputJezyk = document.querySelector('input[name="jezyk"]');

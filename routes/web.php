@@ -16,6 +16,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\InstruktorzyController;
 use App\Http\Controllers\ReservationController;
 
+
 // Test połączenia z bazą
 Route::get('/test-db', function () {
     return DB::select('SELECT * FROM instruktorzy LIMIT 1');
@@ -31,8 +32,8 @@ Route::get('/home', function () {
 
 
 //rezerwacja
-Route::get('/rezerwacja', [ReservationController::class, 'showForm'])->name('rezerwacja');
-Route::post('/rezerwacja', [ReservationController::class, 'submit'])->name('rezerwacja.submit');
+Route::get('/rezerwacja', [ReservationController::class, 'create'])->name('rezerwacja.create');
+Route::post('/rezerwacja', [ReservationController::class, 'store'])->name('rezerwacja.submit');
 
 
 

@@ -25,15 +25,17 @@ class Course extends Model
         'id_instruktora'
     ];
 
-    public function instructor()
-    {
+    public function instructor() {
         return $this->belongsTo(Instruktor::class, 'id_instruktora', 'id');
     }
    
 
-    public function transakcje()
-    {
+    public function transakcje() {
         return $this->hasMany(Transakcja::class, 'id_kursu', 'id_kursu');
+    }
+
+    public function reservations() {
+    return $this->hasMany(Reservation::class, 'course_id', 'id_kursu');
     }
 
 }

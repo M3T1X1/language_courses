@@ -1,35 +1,43 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\Reservation;
 use App\Models\Course;
-use Illuminate\Http\Request; // pamiętaj o imporcie Request
 
 class ReservationController extends Controller
 {
-    public function showForm(Request $request) // dodaj Request jako parametr
+    public function create(Request $request)
     {
+        // Załaduj kursy i przekaż do widoku
         $courses = Course::all();
-        $selectedCourse = $courses->first();
-        
-        if ($request->has('course')) {
-            $selectedCourse = $courses->firstWhere('id_kursu', $request->input('course')) ?? $selectedCourse;
-        }
-    
-        return view('rezerwacja', compact('courses', 'selectedCourse'));
+        return view('rezerwacja', compact('courses'));
     }
 
-    public function submit(Request $request)
-    {
-        // Walidacja i zapis rezerwacji
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'course' => 'required|exists:kursy,id_kursu',
-        ]);
+    public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|string|max:20',
+        'course' => 'required|exists:kursy,id_kursu',  // <-- tutaj poprawka
+    ]);
 
-        // Tu zapisz rezerwację do bazy lub wyślij maila itd.
+    $course = Course::findOrFail($validated['course']);
+    $reservedCount = Reservation::where('course_id', $course->id_kursu)->count();
 
-        return redirect()->route('rezerwacja')->with('success', 'Rezerwacja została przyjęta!');
+    if ($reservedCount >= $course->liczba_miejsc) {
+        return back()->withErrors(['course' => 'Brak wolnych miejsc na ten kurs.'])->withInput();
     }
+
+    Reservation::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'phone' => $validated['phone'],
+        'course_id' => $validated['course'],
+    ]);
+
+    return redirect()->route('rezerwacja.create')->with('success', 'Rezerwacja została pomyślnie dodana!');
 }
+}
+

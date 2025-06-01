@@ -16,7 +16,21 @@
   <div class="booking-box">
     <img src="https://img.icons8.com/color/96/000000/language.png" class="logo" alt="Logo szkoły" />
     <h2 class="booking-title mb-4 text-center">Rezerwacja kursu językowego</h2>
+    @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul class="mb-0">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
 
+@if (session('success'))
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+@endif
     <form method="POST" action="{{ route('rezerwacja.submit') }}">
   @csrf
 
