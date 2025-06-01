@@ -8,12 +8,44 @@ use App\Models\Instruktor;
 class CourseController extends Controller
 {
 
-    // Lista kursów
-    public function index() {
-        // Pobierz wszystkie kursy z bazy danych
-        $courses = Course::with('instructor')->get();
+    
+    public function index(Request $request) {
+        $query = Course::with('instructor');
+    
+        if ($request->filled('jezyk')) {
+            $query->where('jezyk', 'like', '%' . $request->jezyk . '%');
+        }
+    
+        if ($request->filled('poziom')) {
+            $query->where('poziom', 'like', '%' . $request->poziom . '%');
+        }
+    
+        if ($request->filled('cena_max')) {
+            $query->where('cena', '<=', $request->cena_max);
+        }
+    
+        if ($request->filled('miejsca')) {
+            $query->where('liczba_miejsc', '=', $request->miejsca);
+        }
+    
+        if ($request->filled('instruktor')) {
+            $names = explode(' ', $request->instruktor);
+        
+            $query->whereHas('instructor', function ($q) use ($names) {
+                foreach ($names as $name) {
+                    $q->where(function($q2) use ($name) {
+                        $q2->where('imie', 'like', "%{$name}%")
+                           ->orWhere('nazwisko', 'like', "%{$name}%");
+                    });
+                }
+            });
+        }
+        
+    
+        $courses = $query->get();
         return view('course', compact('courses'));
     }
+    
    
     // Szczegóły kursu
     public function show($id) {
@@ -75,7 +107,4 @@ class CourseController extends Controller
 
     return redirect()->route('kursy.index')->with('success', 'Kurs został usunięty.');
     }
-
-
-    
 }

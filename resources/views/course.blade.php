@@ -71,13 +71,28 @@
     </div>
 
     <!-- Filtry -->
-    <div class="row mb-4">
-      <div class="col-md-2"><input class="form-control" id="filterLanguage" placeholder="Język" /></div>
-      <div class="col-md-2"><input class="form-control" id="filterLevel" placeholder="Poziom" /></div>
-      <div class="col-md-2"><input class="form-control" id="filterPrice" type="number" placeholder="Cena max" /></div>
-      <div class="col-md-2"><input class="form-control" id="filterInstructor" placeholder="Instruktor" /></div>
-      <div class="col-md-2"><input class="form-control" id="filterPlaces" placeholder="Miejsca" /></div>
+    <form method="GET" action="{{ route('kursy.index') }}">
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <input class="form-control" name="jezyk" placeholder="Język" value="{{ request('jezyk') }}" />
     </div>
+    <div class="col-md-2">
+      <input class="form-control" name="poziom" placeholder="Poziom" value="{{ request('poziom') }}" />
+    </div>
+    <div class="col-md-2">
+      <input class="form-control" name="cena_max" type="number" placeholder="Cena max" value="{{ request('cena_max') }}" />
+    </div>
+    <div class="col-md-2">
+      <input class="form-control" name="instruktor" placeholder="Instruktor" value="{{ request('instruktor') }}" />
+    </div>
+    <div class="col-md-2">
+      <input class="form-control" name="miejsca" placeholder="Miejsca" value="{{ request('miejsca') }}" />
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary w-100">Filtruj</button>
+    </div>
+  </div>
+</form>
 
     <div class="table-responsive bg-white p-3 rounded shadow-sm">
       <table class="table table-striped align-middle" id="coursesTable">
@@ -95,7 +110,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($courses as $course)
+        @foreach ($courses as $course)
           <tr>
             <td>
               <a href="{{ route('kursy.show', $course->id_kursu) }}">

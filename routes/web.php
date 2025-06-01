@@ -70,8 +70,7 @@ Route::get('/app', function () {
     Route::put('/klienci/{id_klienta}', [KlientController::class, 'update'])->name('klienci.update');
 
     // Kursy
-    Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
-    Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+
     Route::resource('kursy', CourseController::class);
 // Oferta kursów
 Route::get('/oferta', [PublicCourseController::class, 'index'])->name('oferta');
